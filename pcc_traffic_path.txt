@@ -1,0 +1,335 @@
+Tracing pcc endpoints
+
+These are the endpoints on the standard5gc cluster related to pcc traffic. Based on the slide provided by Anton:
+
+
+NAME                                                              READY   STATUS      RESTARTS      AGE   IP                NODE                                     NOMINATED NODE   READINESS GATES
+eric-pc-mm-forwarder-6f497f4765-5p7kt                             1/1     Running     0             33d   100.109.163.200   standard5gc-np3-copy-p8f9m-rnjc2-v9gmm   <none>           <none>
+eric-pc-mm-forwarder-6f497f4765-fdrvn                             1/1     Running     0             10d   100.127.3.15      standard5gc-np2-copy-s6t7s-n8bjr-5xqcm   <none>           <none>
+eric-pc-mm-forwarder-6f497f4765-gtb7l                             1/1     Running     1 (13d ago)   14d   100.107.15.135    standard5gc-np2-copy-s6t7s-n8bjr-k5dfg   <none>           <none>
+eric-pc-sm-notification-forwarder-5cd5dc4bdf-6vtw6                1/1     Running     0             33d   100.120.81.190    standard5gc-np1-copy-4nbfv-4p4fp-prsg5   <none>           <none>
+eric-pc-sm-notification-forwarder-5cd5dc4bdf-wxjfs                1/1     Running     0             33d   100.127.234.162   standard5gc-np1-copy-4nbfv-4p4fp-mfl99   <none>           <none>
+eric-pc-sm-nsmf-forwarder-776f9c4844-5npmz                        1/1     Running     0             33d   100.112.67.253    standard5gc-np1-copy-4nbfv-4p4fp-khmn6   <none>           <none>
+eric-pc-sm-nsmf-forwarder-776f9c4844-jh4zw                        1/1     Running     0             33d   100.120.81.169    standard5gc-np1-copy-4nbfv-4p4fp-prsg5   <none>           <none>
+eric-pc-sm-nsmf-forwarder-776f9c4844-tp8wx                        1/1     Running     0             33d   100.127.234.193   standard5gc-np1-copy-4nbfv-4p4fp-mfl99   <none>           <none>
+eric-pc-sm-nsmf-forwarder-776f9c4844-wmpht                        1/1     Running     0             33d   100.103.229.116   standard5gc-np2-copy-s6t7s-n8bjr-smwfn   <none>           <none>
+eric-pc-sm-udp-forwarder-55d4c96796-7srs5                         1/1     Running     0             33d   100.127.234.194   standard5gc-np1-copy-4nbfv-4p4fp-mfl99   <none>           <none>
+eric-pc-sm-udp-forwarder-55d4c96796-c8mhx                         1/1     Running     0             33d   100.120.81.161    standard5gc-np1-copy-4nbfv-4p4fp-prsg5   <none>           <none>
+eric-pc-sm-udp-forwarder-55d4c96796-hg5gw                         1/1     Running     0             33d   100.112.68.0      standard5gc-np1-copy-4nbfv-4p4fp-khmn6   <none>           <none>
+eric-pc-vpn-gateway-forwarder-757cc7f578-rwp4z                    1/1     Running     0             33d   100.109.163.219   standard5gc-np3-copy-p8f9m-rnjc2-v9gmm   <none>           <none>
+eric-pc-vpn-gateway-forwarder-757cc7f578-vcwg5                    1/1     Running     0             33d   100.127.234.138   standard5gc-np1-copy-4nbfv-4p4fp-mfl99   <none>           <none>
+capv@standard5gc-controlplane-fdq65-7d6cs [ ~ ]$ kubectl get pods -n pcc -o wide  | egrep "NAME|forwarder"
+NAME                                                              READY   STATUS      RESTARTS      AGE   IP                NODE                                     NOMINATED NODE   READINESS GATES
+eric-pc-mm-forwarder-6f497f4765-5p7kt                             1/1     Running     0             33d   100.109.163.200   standard5gc-np3-copy-p8f9m-rnjc2-v9gmm   <none>           <none>
+eric-pc-mm-forwarder-6f497f4765-fdrvn                             1/1     Running     0             10d   100.127.3.15      standard5gc-np2-copy-s6t7s-n8bjr-5xqcm   <none>           <none>
+eric-pc-mm-forwarder-6f497f4765-gtb7l                             1/1     Running     1 (13d ago)   14d   100.107.15.135    standard5gc-np2-copy-s6t7s-n8bjr-k5dfg   <none>           <none>
+eric-pc-sm-notification-forwarder-5cd5dc4bdf-6vtw6                1/1     Running     0             33d   100.120.81.190    standard5gc-np1-copy-4nbfv-4p4fp-prsg5   <none>           <none>
+eric-pc-sm-notification-forwarder-5cd5dc4bdf-wxjfs                1/1     Running     0             33d   100.127.234.162   standard5gc-np1-copy-4nbfv-4p4fp-mfl99   <none>           <none>
+eric-pc-sm-nsmf-forwarder-776f9c4844-5npmz                        1/1     Running     0             33d   100.112.67.253    standard5gc-np1-copy-4nbfv-4p4fp-khmn6   <none>           <none>
+eric-pc-sm-nsmf-forwarder-776f9c4844-jh4zw                        1/1     Running     0             33d   100.120.81.169    standard5gc-np1-copy-4nbfv-4p4fp-prsg5   <none>           <none>
+eric-pc-sm-nsmf-forwarder-776f9c4844-tp8wx                        1/1     Running     0             33d   100.127.234.193   standard5gc-np1-copy-4nbfv-4p4fp-mfl99   <none>           <none>
+eric-pc-sm-nsmf-forwarder-776f9c4844-wmpht                        1/1     Running     0             33d   100.103.229.116   standard5gc-np2-copy-s6t7s-n8bjr-smwfn   <none>           <none>
+eric-pc-sm-udp-forwarder-55d4c96796-7srs5                         1/1     Running     0             33d   100.127.234.194   standard5gc-np1-copy-4nbfv-4p4fp-mfl99   <none>           <none>
+eric-pc-sm-udp-forwarder-55d4c96796-c8mhx                         1/1     Running     0             33d   100.120.81.161    standard5gc-np1-copy-4nbfv-4p4fp-prsg5   <none>           <none>
+eric-pc-sm-udp-forwarder-55d4c96796-hg5gw                         1/1     Running     0             33d   100.112.68.0      standard5gc-np1-copy-4nbfv-4p4fp-khmn6   <none>           <none>
+eric-pc-vpn-gateway-forwarder-757cc7f578-rwp4z                    1/1     Running     0             33d   100.109.163.219   standard5gc-np3-copy-p8f9m-rnjc2-v9gmm   <none>           <none>
+eric-pc-vpn-gateway-forwarder-757cc7f578-vcwg5                    1/1     Running     0             33d   100.127.234.138   standard5gc-np1-copy-4nbfv-4p4fp-mfl99   <none>           <none>
+capv@standard5gc-controlplane-fdq65-7d6cs [ ~ ]$ kubectl get pods -n pcc -o wide  | egrep "NAME|sm-controller"
+NAME                                                              READY   STATUS      RESTARTS      AGE   IP                NODE                                     NOMINATED NODE   READINESS GATES
+eric-pc-sm-controller-85f9b584c5-dz649                            1/1     Running     0             33d   100.109.163.238   standard5gc-np3-copy-p8f9m-rnjc2-v9gmm   <none>           <none>
+eric-pc-sm-controller-85f9b584c5-ndmd7                            1/1     Running     0             33d   100.121.214.150   standard5gc-np3-copy-p8f9m-rnjc2-rz2qs   <none>           <none>
+capv@standard5gc-controlplane-fdq65-7d6cs [ ~ ]$ kubectl get pods -n pcc -o wide  | egrep "NAME|bulk"
+NAME                                                              READY   STATUS      RESTARTS      AGE   IP                NODE                                     NOMINATED NODE   READINESS GATES
+eric-pm-bulk-reporter-556858d75d-j5t9b                            3/3     Running     0             22d   100.127.234.235   standard5gc-np1-copy-4nbfv-4p4fp-mfl99   <none>           <none>
+capv@standard5gc-controlplane-fdq65-7d6cs [ ~ ]$ kubectl get pods -n pcc -o wide  | egrep "NAME|sftp"
+NAME                                                              READY   STATUS      RESTARTS      AGE   IP                NODE                                     NOMINATED NODE   READINESS GATES
+eric-data-sftp-server-5694549d8-bl659                             1/1     Running     0             22d   100.97.222.243    standard5gc-np2-copy-s6t7s-n8bjr-kxv5z   <none>           <none>
+capv@standard5gc-controlplane-fdq65-7d6cs [ ~ ]$ kubectl get pods -n pcc -o wide  | egrep "NAME|yang"
+NAME                                                              READY   STATUS      RESTARTS      AGE   IP                NODE                                     NOMINATED NODE   READINESS GATES
+eric-cm-yang-provider-689cd48c7c-c7gbj                            8/8     Running     0             33d   100.121.214.173   standard5gc-np3-copy-p8f9m-rnjc2-rz2qs   <none>           <none>
+capv@standard5gc-controlplane-fdq65-7d6cs [ ~ ]$ kubectl get pods -n pcc -o wide  | egrep "NAME|routing"
+NAME                                                              READY   STATUS      RESTARTS      AGE   IP                NODE                                     NOMINATED NODE   READINESS GATES
+eric-pc-routing-aggregator-b7f4c7fb6-78m5n                        1/1     Running     0             33d   100.104.216.169   standard5gc-np2-copy-s6t7s-n8bjr-rp8fd   <none>           <none>
+eric-pc-routing-aggregator-b7f4c7fb6-9wzqb                        1/1     Running     0             33d   100.127.234.164   standard5gc-np1-copy-4nbfv-4p4fp-mfl99   <none>           <none>
+eric-pc-routing-engine-5d66654654-2k54f                           1/1     Running     0             33d   100.115.215.24    standard5gc-np2-copy-s6t7s-n8bjr-nlvmd   <none>           <none>
+eric-pc-routing-engine-5d66654654-bdbd5                           1/1     Running     0             33d   100.127.3.23      standard5gc-np2-copy-s6t7s-n8bjr-5xqcm   <none>           <none>
+eric-pc-routing-engine-api-c8f5c7fc6-gh52g                        1/1     Running     1 (22d ago)   33d   100.116.45.144    standard5gc-np3-copy-p8f9m-rnjc2-mqdbq   <none>           <none>
+eric-pc-routing-engine-api-c8f5c7fc6-hxf9q                        1/1     Running     0             33d   100.109.163.247   standard5gc-np3-copy-p8f9m-rnjc2-v9gmm   <none>           <none>
+capv@standard5gc-controlplane-fdq65-7d6cs [ ~ ]$ kubectl get pods -n pcc -o wide  | egrep "NAME|vpn-gw"
+NAME                                                              READY   STATUS      RESTARTS      AGE   IP                NODE                                     NOMINATED NODE   READINESS GATES
+capv@standard5gc-controlplane-fdq65-7d6cs [ ~ ]$ kubectl get pods -n pcc -o wide  | egrep "NAME|mm-forwarder"
+NAME                                                              READY   STATUS      RESTARTS      AGE   IP                NODE                                     NOMINATED NODE   READINESS GATES
+eric-pc-mm-forwarder-6f497f4765-5p7kt                             1/1     Running     0             33d   100.109.163.200   standard5gc-np3-copy-p8f9m-rnjc2-v9gmm   <none>           <none>
+eric-pc-mm-forwarder-6f497f4765-fdrvn                             1/1     Running     0             10d   100.127.3.15      standard5gc-np2-copy-s6t7s-n8bjr-5xqcm   <none>           <none>
+eric-pc-mm-forwarder-6f497f4765-gtb7l                             1/1     Running     1 (13d ago)   14d   100.107.15.135    standard5gc-np2-copy-s6t7s-n8bjr-k5dfg   <none>           <none>
+
+
+standard5gc-np3-copy-p8f9m-rnjc2-v9gmm for example is a VM connected to the 01-TKG-primary and the 02-TKG-secondary-VLAN segments.
+
+16 interfaces (from nodes in np1, np2 and np3 nodepools) are connected to the secondary-VLAN.
+
+Nodes on standard5gc are all connected to the 01-TKG-primary and the 02-TKG-secondary-VLAN segments with the exception of : othernp nodepool and the control plane nodes. 
+1-TKG-primary has 127 interfaces with AVI-se, tkg CP nodes  and nodes from standard5gc are connected.
+
+01-TKG-primary is both NAT'ed and routed. Connected to T1-tkg-primary 
+
+T1-tkg-primary is connected to Tier0 router. Which has a bunch of VRFs.
+
+
+
+Checking configuration on the vpn forwarder:
+
+│ NAME↑                                            PF   READY       RESTARTS STATUS         CPU    MEM    %CPU/R    %CPU/L    %MEM/R    %MEM/L IP                  NODE                                       AGE      │
+│ eric-pc-networking-cm-agent-546664b699-5xgkv     ●    1/1                1 Running          2     23         2         0        36         9 100.109.163.226     standard5gc-np3-copy-p8f9m-rnjc2-v9gmm     55d      │
+│ eric-pc-networking-cm-agent-546664b699-ht86k     ●    1/1                0 Running          2     24         2         0        37         9 100.127.3.12        standard5gc-np2-copy-s6t7s-n8bjr-5xqcm     55d      │
+│ eric-pc-vpn-gateway-forwarder-688c9bcf8-ch6dv    ●    1/1                2 Running         50    187         4         4         9         9 100.105.107.42      standard5gc-np2-copy-s6t7s-n8bjr-ffttx     18d      │
+│ eric-pc-vpn-gateway-forwarder-688c9bcf8-sbvw6    ●    1/1                6 Running         44    165         4         4         8         8 100.112.68.37       standard5gc-np1-copy-4nbfv-4p4fp-khmn6     18d  
+
+
+  67108913 2108224:standard5gc-htnp-qdsr7     vmnic2 DvsPortset-2       1045.75    2.26  283.00    1020.43    3.35  430.00   0.00   0.00
+  67108917 2121842:standard5gc-htnp-qdsr7     vmnic2 DvsPortset-2       1336.36    7.16  702.00    1107.13    3.41  403.00   0.00   0.00
+
+
+[root@n294-esxi-ht-01:~] net-stats -l
+PortNum          Type SubType SwitchName       MACAddress         ClientName
+2214592544          4       0 DvsPortset-2     b8:3f:d2:89:2f:91  vmnic3
+2214592546          4       0 DvsPortset-2     b8:3f:d2:89:2f:90  vmnic2
+67108902            3       0 DvsPortset-2     00:50:56:6c:2c:c3  vmk10
+67108903            3       0 DvsPortset-2     00:50:56:62:ef:c4  vmk11
+67108905            3       0 DvsPortset-2     00:50:56:67:6c:27  vmk50
+67108906            0       0 DvsPortset-2     02:50:56:56:44:52  vdr-vdrPort
+67108913            5       9 DvsPortset-2     00:50:56:b0:06:2a  standard5gc-htnp-qdsr7-zrh6w-r9zm4.eth0
+67108917            5       9 DvsPortset-2     00:50:56:b0:52:e8  standard5gc-htnp-qdsr7-zrh6w-wwn5f.eth0
+
+
+
+
+Collect edge node fragment stats:
+
+We have this appctl to dump all router port stats (including fragmentation)
+edge-appctl -t /var/run/vmware/edge/dpd.ctl lrouter_port/show | json_pp
+
+You can write a python or bash script that executes this cmd and appends to say /var/log/vmware/lrouter_port_stats.log
+That will dump stats for all the interfaces below.
+for example say, lrouter_dump.py
+
+Then just add this to crontab for periodic collection.
+
+
+
+Interface names:
+
+n294-edge-01> get logical-router interfaces | find "name"
+Mon May 26 2025 UTC 19:18:23.536
+name        : N294-T0-Mini-T1-Mini-tkg-primary-t1_lrp
+name        : bp-sr0-port
+name        : T1-Mini-tkg-primary-dhcp-dlrp
+name        : infra-01-Mini-TKG-primary-dlrp
+name        : bp-dr-port
+name        : bp-sr0-port
+name        : Mini-Edge_01-R
+name        : Mini-Edge_01-L
+name        : bp-dr-port
+name        : N294-T0-Mini-T1-Mini-tkg-primary-t0_lrp
+name        : bp-sr0-port
+name        : N294-Tier0-T1-tkg-primary-t1_lrp
+name        : bp-dr-port
+name        : infra-01-TKG-primary-dlrp
+name        : T1-tkg-primary-dhcp-dlrp
+name        : bp-sr0-port
+name        : Mini-Edge01-L
+name        : mini-om-cn-bgp-gw1
+name        : Mini-Edge01-R
+name        : bp-dr-port
+name        : om-cn-bgp-gw1
+name        : VM-Edge-1-L
+name        : VM-Edge-1-R
+name        : bp-sr0-port
+name        : bp-dr-port
+name        : VM-Edge-1-L
+name        : bp-sr0-port
+name        : sig-data-bgp-gw1
+name        : VM-Edge-1-R
+name        : bp-dr-port
+name        : VM-Edge-1-R
+name        : VM-Edge-1-sig_cn-L
+name        : t0-trunk-0-N294-Tier0-LS-Edge-VRF-L-6OoU_3E07-ulrp
+name        : VM-Edge-1-sig_data-L
+name        : sr0-internal-routing-port
+name        : VM-Edge-1-L
+name        : t0-trunk-0-N294-Tier0-LS-Edge-VRF-L-ulrp
+name        : t0-trunk-0-N294-Tier0-LS-Tier0-Mini-om_cn-R-ulrp
+name        : VM-Edge-1-sig_data-R
+name        : bp-sr0-port
+name        : t0-trunk-0-N294-Tier0-LS-Tier0-Mini-om_cn-L-ulrp
+name        : VM-Edge-1-sig_cn-R
+name        : bp-dr-port
+name        : multicast-transit-port
+name        : N294-Tier0-T1-tkg-primary-t0_lrp
+name        : VM-Edge-1-L
+name        : bp-sr0-port
+name        : sig-cn-bgp-gw1
+name        : VM-Edge-1-R
+name        : bp-dr-port
+name        :
+name        :
+
+
+get logical-router interface c12fd489-c9a5-4ee9-9b88-b7a8528f31df stats
+
+
+
+Interfaces I see:
+
+interface   : 96c78561-27ae-51f6-8efe-2c958f5cd77a
+port-type   : cpu
+interface   : 9646b1c3-bd45-50aa-b502-6dabceade10d
+port-type   : blackhole
+interface   : aff92545-c378-457d-b090-dab13ccb5705
+name        : N294-T0-Mini-T1-Mini-tkg-primary-t1_lrp
+port-type   : uplink
+op_state    : down
+interface   : 8daf3b04-d745-4ba9-8e8a-f78aad4ab97a
+name        : bp-sr0-port
+port-type   : backplane
+op_state    : down
+interface   : 2581be75-e800-463d-94fe-148ee2510420
+port-type   : loopback
+interface   : 2013a6f7-9f0f-5f47-95a3-0f00c6ece625
+port-type   : cpu
+interface   : 2d0425b5-615a-57c2-9b1c-658621eef465
+port-type   : blackhole
+interface   : a1111c4e-d116-47f1-91bf-93fd5e72d075
+name        : T1-Mini-tkg-primary-dhcp-dlrp
+port-type   : downlink
+op_state    : up
+interface   : be9162a4-0e06-42eb-b0eb-0a9ad8af6960
+name        : infra-01-Mini-TKG-primary-dlrp
+port-type   : downlink
+op_state    : up
+interface   : 7efa289a-40e3-4a4a-92d5-ec8e7472ff21
+name        : bp-dr-port
+port-type   : backplane
+op_state    : up
+interface   : d6cc6784-90ca-5381-ae4f-d3b74883b41e
+port-type   : cpu
+interface   : 1abca924-5f89-5328-b422-3ff5444dcc36
+port-type   : blackhole
+interface   : 37b6f08d-4f68-4a25-b9ff-7f1356c80662
+name        : bp-sr0-port
+port-type   : backplane
+op_state    : up
+interface   : 91c2a964-5ac1-4af7-9873-7850ebb5da75
+port-type   : loopback
+interface   : ffb82a15-a5ed-4640-a880-d47aeb9de796
+name        : Mini-Edge_01-R
+port-type   : uplink
+op_state    : up
+interface   : efae5dea-271d-4aac-a84d-69032518d1e2
+name        : Mini-Edge_01-L
+port-type   : uplink
+op_state    : up
+interface   : 534d821f-4c8d-5827-a2d6-cedc8a7399a2
+port-type   : cpu
+interface   : bad2737f-6d47-5445-a305-a12ee886296c
+port-type   : blackhole
+interface   : 3172cada-77b8-45c9-ad66-e87ba045c4f1
+name        : bp-dr-port
+port-type   : backplane
+op_state    : up
+interface   : 0916442b-f4b7-5a0d-8ef8-5a80c2bfa8c0
+name        : N294-T0-Mini-T1-Mini-tkg-primary-t0_lrp
+port-type   : downlink
+op_state    : up
+interface   : fefd4d06-f413-58d3-9012-9e5218777241
+port-type   : cpu
+interface   : 0fd62a36-213c-5760-a9fe-ae39995ab797
+port-type   : blackhole
+interface   : 57e4f9e4-ce58-43be-991c-06260f7b7e45
+port-type   : loopback
+interface   : 6df0d04d-51e2-4437-851e-73f89023c414
+name        : bp-sr0-port
+port-type   : backplane
+op_state    : down
+
+
+
+ get logical-router interface 8dacab39-eade-4482-a268-cc096b472291 stats
+ 
+ Per interface info and stats:
+ 
+ n294-edge-01> get logical-router interface 8dacab39-eade-4482-a268-cc096b472291
+Mon May 26 2025 UTC 19:32:21.320
+interface   : 8dacab39-eade-4482-a268-cc096b472291
+ifuid       : 352
+VRF         : 77134bbb-3d7a-4d2b-8dc0-395aba45032e
+name        : VM-Edge-1-sig_cn-R
+mode        : lif
+IP/Mask     : 172.31.219.68/28
+Fwd-mode    : IPV4_ONLY
+MAC         : 00:50:56:b0:34:cc
+VLAN        : 1017
+LS port     : e44ce688-60b6-4866-99aa-ec9330842e33
+urpf-mode   : STRICT_MODE
+admin       : up
+op_state    : up
+MTU         : 2500
+arp_proxy   :
+
+n294-edge-01> get logical-router interface 8dacab39-eade-4482-a268-cc096b472291 stats
+Mon May 26 2025 UTC 19:32:26.367
+interface   : 8dacab39-eade-4482-a268-cc096b472291
+ifuid       : 352
+VRF         : 77134bbb-3d7a-4d2b-8dc0-395aba45032e
+name        : VM-Edge-1-sig_cn-R
+IP/Mask     : 172.31.219.68/28
+MAC         : 00:50:56:b0:34:cc
+VLAN        : 1017
+LS port     : e44ce688-60b6-4866-99aa-ec9330842e33
+urpf-mode   : STRICT_MODE
+admin       : up
+op_state    : up
+MTU         : 2500
+statistics
+    RX-Packets  : 2777432599
+    RX-Bytes    : 425535343355
+    RX-Drops    : 39306
+        Blocked     : 0
+        DST-Unsupported: 2963
+        Firewall    : 0
+        Malformed   : 0
+        No-Receiver : 0
+        No-Route    : 32
+        RPF-Check   : 29640
+        Protocol-Unsupported: 3708
+        IPv6        : 2963
+        Port-Unsupported: 0
+        TTL-Exceeded: 0
+        Kni         : 0
+        Rate-Limit  : 0
+        IPsec       : 0
+        IPsec-NoSA  : 0
+        IPsec-NoVTI : 0
+    TX-Packets  : 1599141
+    TX-Bytes    : 106964174
+    TX-Drops    : 1336
+        Blocked     : 0
+        Firewall    : 0
+        Frag-Needed : 0
+        No-neighbor : 1336
+        No-Memory   : 0
+        No-Linked-Port: 0
+        Rate-Limit  : 0
+        IPsec       : 0
+        IPsec-NoSA  : 0
+        IPsec-NoVTI : 0
+        IPsec-Policy-Error: 0
+        IPsec-Policy-Block: 0
+    IP Ressemble
+        Fragments-OK: 0
+        Fragemnts-Error: 0
+        Fragments-Timeout: 0
+    IP Fragment
+        Fragments-OK: 0
+        Fragments-Error: 0
+
