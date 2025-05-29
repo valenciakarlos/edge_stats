@@ -21,6 +21,7 @@ def jsonize_entries(file_content) -> list:
         }
     ]
     """
+    import json
     json_list: list = []
 
     # Split the file content into individual JSON objects
@@ -50,7 +51,10 @@ def main():
     entries = jsonize_entries(file_content)
 
     # For demonstration, print first parsed entry
-    print(entries[0])
+    print("Entries of type:")
+    print(type(entries))
+    print(entries[1])
+
 
 
 if __name__ == "__main__":
