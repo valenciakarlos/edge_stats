@@ -1,0 +1,162 @@
+Comparative on edge node 2:
+
+
+
+interface   : 9966d8e2-fbba-41de-9d87-5955b165c4ff
+ifuid       : 305
+VRF         : b96b17b6-5ade-457c-a2e4-dcb80e418edb
+name        : VM-Edge-2-L
+Fwd-mode    : IPV4_ONLY
+mode        : lif
+port-type   : uplink
+IP/Mask     : 172.31.218.21/28
+MAC         : 00:50:56:b0:c1:1e
+LS port     : cd7b2351-76aa-4813-9fcd-eb44110be964
+urpf-mode   : STRICT_MODE
+admin       : up
+op_state    : up
+MTU         : 2500
+arp_proxy   :
+
+
+That corresponds to this entry when using:   edge-appctl -t /var/run/vmware/edge/dpd.ctl lrouter_port/show | json_pp | less
+
+
+edge-appctl -t /var/run/vmware/edge/dpd.ctl lrouter_port/show | json_pp | egrep "access_vlan|ifuid|ifuuid|internal_name|\"name"
+
+   {
+      "access_vlan" : "1010",
+      "admin" : "up",
+      "connect-to-service-plane-ew" : false,
+      "connect-to-service-plane-ns" : false,
+      "dad-mode" : "LOOSE",
+      "dad-profile" : "(1 sec, 3 rtr)",
+      "enable-firewall" : false,
+      "enable-firewall-ike" : false,
+      "enable-firewall-pbr" : false,
+      "enable-firewall-rule" : false,
+      "enable-span" : false,
+      "enable_multicast" : false,
+      "enable_pim" : false,
+      "force-reassemble" : false,
+      "iface_group_id" : 0,
+      "ifuid" : 305,
+      "ifuuid" : "9966d8e2-fbba-41de-9d87-5955b165c4ff",
+      "internal_name" : "uplink-305",
+      "internal_operation" : "up",
+      "ip stats" : {
+         "rx_bytes" : 0,
+         "rx_drops" : 0,
+         "rx_pkts" : 0,
+         "tx_bytes" : 0,
+         "tx_drops" : 0,
+         "tx_pkts" : 0
+      },
+      "ipns" : [
+         "172.31.218.21/28"
+      ],
+      "ipv6 ra route info" : {},
+      "ipv6 stats" : {
+         "rx_bytes" : 0,
+         "rx_drops" : 0,
+         "rx_pkts" : 0,
+         "tx_bytes" : 0,
+         "tx_drops" : 0,
+         "tx_pkts" : 0
+      },
+      "l3_forwarding_mode" : "IPV4_ONLY",
+      "lrouter" : "b96b17b6-5ade-457c-a2e4-dcb80e418edb",
+      "mac" : "00:50:56:b0:c1:1e",
+      "mtu" : 2500,
+      "multicast_oper_up" : false,
+      "name" : "VM-Edge-2-L",
+      "op_state" : "up",
+      "ospf_oper_up" : false,
+      "peer" : "cd7b2351-76aa-4813-9fcd-eb44110be964",
+      "peer_bp" : 100000,
+      "peer_bp_valid" : false,
+      "peer_mac_valid" : false,
+      "peer_rl" : 100000,
+      "peer_rl_valid" : false,
+      "ptype" : "uplink",
+      "punt-policy" : "SRC",
+      "ra-mode" : "SLAAC_DNS_THROUGH_RA(M=0, O=0)",
+      "redirect-to-kernel" : false,
+      "redirect-to-kernel-service" : false,
+      "redirect-to-kernel-transproxy" : false,
+      "stats" : {
+         "rx_bytes" : 224360932,
+         "rx_drop_blocked" : 0,
+         "rx_drop_dst_unsupported" : 3702,
+         "rx_drop_firewall" : 0,
+         "rx_drop_igmp" : 0,
+         "rx_drop_ipsec" : 0,
+         "rx_drop_ipsec_nosa" : 0,
+         "rx_drop_ipsec_novti" : 0,
+         "rx_drop_ipv6" : 3707,
+         "rx_drop_kni" : 0,
+         "rx_drop_l4port_unsupported" : 0,
+         "rx_drop_malformed" : 0,
+         "rx_drop_no_receiver" : 0,
+         "rx_drop_no_route" : 22,
+         "rx_drop_proto_unsupported" : 4559,
+         "rx_drop_rate_limit" : 0,
+         "rx_drop_redirect" : 0,
+         "rx_drop_rpf_check" : 9,
+         "rx_drop_ttl_exceeded" : 0,
+         "rx_drops" : 11999,
+         "rx_frag_error" : 0,
+         "rx_frag_ok" : 0,
+         "rx_frag_timeout" : 0,
+         "rx_frags" : 0,
+         "rx_mld" : 0,
+         "rx_pkts" : 2393602,
+         "rx_rs" : 0,
+         "tx_bytes" : 4317018362,
+         "tx_drop_blocked" : 0,
+         "tx_drop_dad" : 0,
+         "tx_drop_firewall" : 0,
+         "tx_drop_frag_needed" : 0,
+         "tx_drop_ipsec" : 0,
+         "tx_drop_ipsec_nosa" : 0,
+         "tx_drop_ipsec_novti" : 0,
+         "tx_drop_ipsec_pol_block" : 0,
+         "tx_drop_ipsec_pol_err" : 0,
+         "tx_drop_no_arp" : 2164,
+         "tx_drop_no_linked" : 0,
+         "tx_drop_no_mem" : 0,
+         "tx_drop_non_ip" : 0,
+         "tx_drop_rate_limit" : 0,
+         "tx_drop_service_insert" : 0,
+         "tx_drops" : 2164,
+         "tx_frag_error" : 0,
+         "tx_frag_ok" : 0,
+         "tx_pkts" : 9812370
+      }
+
+
+Entries I see:
+
+      "access_vlan" : "1010",
+      "ifuid" : 305,
+      "ifuuid" : "9966d8e2-fbba-41de-9d87-5955b165c4ff",
+      "internal_name" : "uplink-305",
+      "name" : "VM-Edge-2-L",
+
+      "access_vlan" : "untagged",
+      "ifuid" : 355,
+      "ifuuid" : "f8b1b4af-dcbd-494c-8408-acc7315b1e19",
+      "internal_name" : "uplink-355",
+      "name" : "VM-Edge-2-L",
+
+      "access_vlan" : "1012",
+      "ifuid" : 347,
+      "ifuuid" : "6e2c65b6-994f-4100-9065-df7f0b5daf2d",
+      "internal_name" : "uplink-347",
+      "name" : "VM-Edge-2-L",
+
+      "access_vlan" : "1018",
+      "ifuid" : 349,
+      "ifuuid" : "808e6ece-9880-4928-942d-881cde4efc06",
+      "internal_name" : "uplink-349",
+      "name" : "VM-Edge-2-L",
